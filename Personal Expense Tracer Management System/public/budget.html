@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monthly Budget | ExpenseTracker</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/budget.css">
+</head>
+
+<body class="budget-body">
+
+    <div class="budget-container">
+
+        <a href="/dashboard.html" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+        <div class="budget-card">
+
+            <div class="budget-heading">
+                <h1>Set Monthly Budget</h1>
+                <p>Plan your spending and manage your money wisely.</p>
+            </div>
+
+            <form id="budgetForm">
+
+                <label for="category">Expense Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select Category</option>
+                </select>
+
+                <label for="monthlyLimit">Monthly Budget (₹)</label>
+                <input
+                    type="number"
+                    id="monthlyLimit"
+                    name="monthlyLimit"
+                    placeholder="Enter your budget amount"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+                <label for="budgetMonth">Month</label>
+                <select id="budgetMonth" name="month" required>
+                    <option value="">Select Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+
+                <label for="budgetYear">Year</label>
+                <input
+                    type="number"
+                    id="budgetYear"
+                    name="year"
+                    min="2026"
+                    max="2100"
+                    required
+                >
+
+                <button type="submit" class="budget-btn">
+                    Save Budget
+                </button>
+
+            </form>
+
+            <p id="budgetMessage" class="budget-message"></p>
+
+        </div>
+
+    </div>
+
+    <script src="/js/budget.js"></script>
+
+</body>
+</html>

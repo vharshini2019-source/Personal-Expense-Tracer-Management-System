@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction | ExpenseTracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/transaction.css">
+</head>
+<body class="transaction-body">
+
+    <div class="transaction-container">
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="transaction-card">
+            <h1>Add Transaction</h1>
+            <p>Record your income and expenses</p>
+
+            <form id="transactionForm">
+
+                <label>Transaction Type</label>
+                <select id="transactionType" required>
+                    <option value="">Select Type</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+
+                <label>Amount (₹)</label>
+                <input type="number" id="amount"
+                    placeholder="Enter amount" min="0.01"
+                    step="0.01" required>
+
+                <label>Category</label>
+                <select id="category" required>
+                    <option value="">Select Category</option>
+                </select>
+
+                <label>Description</label>
+                <input type="text" id="description"
+                    placeholder="Enter description">
+
+                <label>Date</label>
+                <input type="date" id="transactionDate" required>
+
+                <button type="submit" class="save-btn">
+                    Save Transaction
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="js/transaction.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ExpenseTracker</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <h2>Expense<span>Tracker</span></h2>
+
+        
+            <nav class="sidebar-menu">
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/add-transaction.html">Transactions</a>
+    <a href="/budget.html">Budgets</a>
+    <a href="#reports">Reports</a>
+    <a href="/index.html">Home</a>
+</nav>
+       
+
+        <button id="logoutBtn" class="logout-btn">↪ Logout</button>
+    </aside>
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome back, <span id="userName">User</span>!</p>
+            </div>
+            <div class="profile-circle">👤</div>
+        </header>
+
+        <section class="summary-cards">
+
+            <div class="summary-card balance">
+                <p>Total Balance</p>
+                <h2 id="totalBalance">₹0.00</h2>
+                <span>Available balance</span>
+            </div>
+
+            <div class="summary-card income">
+                <p>Total Income</p>
+                <h2 id="totalIncome">₹0.00</h2>
+                <span>This month</span>
+            </div>
+
+            <div class="summary-card expense">
+                <p>Total Expenses</p>
+                <h2 id="totalExpense">₹0.00</h2>
+                <span>This month</span>
+            </div>
+
+            <div class="summary-card budget">
+                <p>Monthly Budget</p>
+                <h2 id="totalBudget">₹0.00</h2>
+                <span>Budget limit</span>
+            </div>
+
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-panel chart-panel" id="reports">
+                <h2>Income vs Expenses</h2>
+                <p>Monthly financial overview</p>
+                <canvas id="incomeExpenseChart"></canvas>
+            </div>
+
+            <div class="dashboard-panel">
+                <h2>Quick Actions</h2>
+                <p>Manage your money easily</p>
+
+                <a href="/add-transaction.html" class="action-link">
+                    + Add Transaction
+                </a>
+
+                <a href="/budget.html" class="action-link">
+                    + Set Monthly Budget
+                </a>
+
+                <a href="#transactions" class="action-link">
+                    View Transactions
+                </a>
+            </div>
+
+        </section>
+
+        <section class="dashboard-panel transactions-panel" id="transactions">
+
+            <h2>Recent Transactions</h2>
+            <p>Your latest income and expenses</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="transactionList">
+                        <tr>
+                            <td colspan="5">No transactions available yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="/js/dashboard.js"></script>
+
+</body>
+</html>

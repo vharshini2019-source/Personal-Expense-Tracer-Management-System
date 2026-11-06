@@ -1,0 +1,100 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.transaction-body {
+    min-height: 100vh;
+    background:
+        linear-gradient(110deg, rgba(10, 25, 45, 0.82), rgba(10, 25, 45, 0.35)),
+        url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920")
+        center/cover fixed no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 20px;
+}
+
+.transaction-container {
+    width: 100%;
+    max-width: 520px;
+}
+
+.back-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.transaction-card {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 38px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+.transaction-card h1 {
+    color: #17243b;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.transaction-card p {
+    color: #8791a5;
+    margin-bottom: 25px;
+}
+
+.transaction-card label {
+    display: block;
+    color: #344158;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 8px;
+}
+
+.transaction-card input,
+.transaction-card select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #dce2eb;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.transaction-card input:focus,
+.transaction-card select:focus {
+    border-color: #28aa8b;
+    box-shadow: 0 0 0 3px rgba(40, 170, 139, 0.12);
+}
+
+.save-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 9px;
+    background: #168e76;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background: #10715f;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 500px) {
+    .transaction-card {
+        padding: 25px 20px;
+    }
+}
