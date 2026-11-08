@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ExpenseTracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body login-page">
+
+<div class="auth-layout">
+
+    <section class="auth-copy">
+        <h2>EXPENSE <span>TRACKER</span></h2>
+
+        <h1>Track Today.<br><span>Save Tomorrow.</span></h1>
+
+        <p>Take control of your finances and build a better future.</p>
+
+        <div class="benefit">
+            <h3>📊 Smart Analytics</h3>
+            <p>Get insights into your spending habits with detailed reports.</p>
+        </div>
+
+        <div class="benefit">
+            <h3>🔒 Secure & Private</h3>
+            <p>Your financial information stays protected.</p>
+        </div>
+
+        <div class="benefit">
+            <h3>🎯 Achieve Goals</h3>
+            <p>Set budgets, track progress and achieve your goals.</p>
+        </div>
+    </section>
+
+    <section class="auth-form">
+        <div class="form-icon">🔐</div>
+        <h1>Welcome Back!</h1>
+        <p class="subtitle">Login to your account</p>
+
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="message" class="auth-message"></p>
+
+        <p class="switch-link">
+            Don't have an account?
+            <a href="register.html">Register now</a>
+        </p>
+
+        <p class="secure-text">🔒 Your information is safe and secure</p>
+    </section>
+
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
