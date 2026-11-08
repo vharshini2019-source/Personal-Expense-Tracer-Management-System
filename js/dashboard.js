@@ -1,29 +1,11 @@
 
-// ==========================================
-// PERSONAL EXPENSE TRACKER - DASHBOARD
-// ==========================================
-
-// IMPORTANT:
-// If backend is running locally, keep this as shown.
-// After hosting your backend, replace with its URL.
-const API_BASE_URL = "http://localhost:3000";
-
 const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user") || "null");
 
-let user = null;
-
-try {
-    user = JSON.parse(localStorage.getItem("user") || "null");
-} catch (error) {
-    console.error("Invalid user data:", error);
-}
-
-// CHECK LOGIN
 if (!token || !user) {
-    window.location.replace("login.html");
+    window.location.replace("/login.html");
 }
 
-// DISPLAY USER NAME
 const userName = document.getElementById("userName");
 
 if (userName && user) {
@@ -31,22 +13,15 @@ if (userName && user) {
 }
 
 // LOGOUT
-const logoutBtn = document.getElementById("logoutBtn");
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.replace("/login.html");
+});
 
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        window.location.replace("login.html");
-    });
-}
-
-// ==========================================
 // API HELPER
-// ==========================================
-
 async function getData(url) {
-    const response = await fetch(`${API_BASE_URL}${url}`, {
+    const response = await fetch(url, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -59,46 +34,38 @@ async function getData(url) {
     return response.json();
 }
 
-// ==========================================
 // LOAD SUMMARY
-// ==========================================
-
 async function loadSummary() {
     try {
         const data = await getData("/api/dashboard/summary");
 
         document.getElementById("totalBalance").textContent =
-            "₹" + Number(data.totalBalance || 0).toFixed(2);
+            "₹" + Number(data.totalBalance).toFixed(2);
 
         document.getElementById("totalIncome").textContent =
-            "₹" + Number(data.totalIncome || 0).toFixed(2);
+            "₹" + Number(data.totalIncome).toFixed(2);
 
         document.getElementById("totalExpense").textContent =
-            "₹" + Number(data.totalExpense || 0).toFixed(2);
+            "₹" + Number(data.totalExpense).toFixed(2);
 
         document.getElementById("totalBudget").textContent =
-            "₹" + Number(data.totalBudget || 0).toFixed(2);
+            "₹" + Number(data.totalBudget).toFixed(2);
 
     } catch (error) {
         console.error("Summary error:", error);
     }
 }
 
-// ==========================================
 // LOAD TRANSACTIONS
-// ==========================================
-
 async function loadTransactions() {
     const tbody = document.getElementById("transactionList");
-
-    if (!tbody) return;
 
     try {
         const transactions = await getData("/api/transactions");
 
         tbody.innerHTML = "";
 
-        if (!Array.isArray(transactions) || transactions.length === 0) {
+        if (transactions.length === 0) {
             tbody.innerHTML =
                 '<tr><td colspan="5">No transactions available yet.</td></tr>';
             return;
@@ -108,7 +75,6 @@ async function loadTransactions() {
             const row = document.createElement("tr");
 
             const date = new Date(item.transaction_date);
-
             const formattedDate = Number.isNaN(date.getTime())
                 ? item.transaction_date
                 : date.toLocaleDateString("en-IN");
@@ -117,35 +83,30 @@ async function loadTransactions() {
             description.textContent = item.description || "-";
 
             const category = document.createElement("td");
-            category.textContent = item.category_name || "-";
+            category.textContent = item.category_name;
 
             const dateCell = document.createElement("td");
             dateCell.textContent = formattedDate;
 
             const type = document.createElement("td");
-            type.textContent = item.transaction_type || "-";
+            type.textContent = item.transaction_type;
 
             const amount = document.createElement("td");
             amount.textContent =
-                "₹" + Number(item.amount || 0).toFixed(2);
+                "₹" + Number(item.amount).toFixed(2);
 
             row.append(description, category, dateCell, type, amount);
-
             tbody.appendChild(row);
         });
 
     } catch (error) {
         console.error("Transaction error:", error);
-
         tbody.innerHTML =
             '<tr><td colspan="5">Unable to load transactions.</td></tr>';
     }
 }
 
-// ==========================================
 // LOAD BUDGETS
-// ==========================================
-
 async function loadBudgets() {
     const tbody = document.getElementById("budgetList");
 
@@ -161,7 +122,7 @@ async function loadBudgets() {
 
         tbody.innerHTML = "";
 
-        if (!Array.isArray(budgets) || budgets.length === 0) {
+        if (budgets.length === 0) {
             tbody.innerHTML =
                 '<tr><td colspan="4">No budgets available yet.</td></tr>';
             return;
@@ -171,13 +132,10 @@ async function loadBudgets() {
             const row = document.createElement("tr");
 
             const values = [
-                item.category_name || "-",
-                "₹" + Number(item.monthly_limit || 0).toFixed(2),
-                new Date(year, month - 1).toLocaleString(
-                    "en-IN",
-                    { month: "long" }
-                ),
-                item.year || year
+                item.category_name,
+                "₹" + Number(item.monthly_limit).toFixed(2),
+                new Date(year, month - 1).toLocaleString("en-IN", { month: "long" }),
+                item.year
             ];
 
             values.forEach(value => {
@@ -191,28 +149,21 @@ async function loadBudgets() {
 
     } catch (error) {
         console.error("Budget error:", error);
-
         tbody.innerHTML =
             '<tr><td colspan="4">Unable to load budgets.</td></tr>';
     }
 }
 
-// ==========================================
-// LOAD INCOME & EXPENSE CHART
-// ==========================================
-
+// CHART
 async function loadChart() {
     try {
         const transactions = await getData("/api/transactions");
 
-        const months = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        ];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
         const income = Array(12).fill(0);
         const expense = Array(12).fill(0);
-
         const currentYear = new Date().getFullYear();
 
         transactions.forEach(item => {
@@ -234,10 +185,8 @@ async function loadChart() {
         if (canvas && typeof Chart !== "undefined") {
             new Chart(canvas, {
                 type: "bar",
-
                 data: {
                     labels: months,
-
                     datasets: [
                         {
                             label: "Income",
@@ -253,15 +202,11 @@ async function loadChart() {
                         }
                     ]
                 },
-
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                        y: { beginAtZero: true }
                     }
                 }
             });
@@ -272,13 +217,8 @@ async function loadChart() {
     }
 }
 
-// ==========================================
 // LOAD ALL DASHBOARD DATA
-// ==========================================
-
 async function loadDashboard() {
-    if (!token || !user) return;
-
     await Promise.all([
         loadSummary(),
         loadTransactions(),
